@@ -64,7 +64,33 @@ const App = () => }
   },[])
 
 
-  return ()
+  return (
+
+    <main>
+      <h1>React Blog</h1>
+      <section>
+        <form onSubmit={handleNewPostFormSubmit}>
+          <label for="title">Title: </label>
+          <input type="text" onChange={handleNewTitleChange}/><br/>
+          <label for="title">Image: </label>
+          <input type="text" onChange={handleNewImageChange}/><br/>
+          <label for="title">Author: </label>
+          <input type="text" onChange={handleNewAuthorChange}/><br/>
+          <label for="title">Feeling: </label>
+          <select onChange={handleNewFeelingChange}>
+            <option selected value="Happy">Happy</option>
+            <option value="Sad">Sad</option>
+            <option value="Excited">Excited</option>
+            <option value="Blessed">Blessed</option>
+            <option value="Anxious">Anxious</option>
+          </select><br/>
+          <label for="title">Post: </label>
+          <input type="text" onChange={handleNewPostChange}/><br/>
+        </form>
+      </section>
+    </main>
+    
+  )
 
 }
 
