@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 
-const App = () => }
+const App = () => {
 
   const [newAuthor, setNewAuthor] = useState('')
   const [newTitle, setNewTitle] = useState('')
@@ -13,43 +13,48 @@ const App = () => }
 
   const handleNewAuthorChange = (event) => {
     setNewAuthor(event.target.value)
+    console.log(newAuthor)
   }
 
   const handleNewTitleChange = (event) => {
     setNewTitle(event.target.value)
+    console.log(newTitle)
   }
 
   const handleNewPostChange = (event) => {
     setNewPost(event.target.value)
+    console.log(newPost)
   }
 
   const handleNewFeelingChange = (event) => {
     setNewFeeling(event.target.value)
+    console.log(newFeeling)
   }
 
   const handleNewCommentChange = (event) => {
     setNewComments(event.target.value)
+    console.log(newComments)
   }
 
   const handleNewImageChange = (event) => {
     setNewImage(event.target.value)
+    console.log(newImage)
   }
 
   const handleNewPostFormSubmit = (event) => {
     event.preventDefault()
     axios.post(
-      'http://localhost:3000/posts',
+      'http://localhost:3001/posts',
       {
         author:newAuthor,
         post:newPost,
         title:newTitle,
         image:newImage,
-        feeling:newFeeling,
-        comments:newComments
+        feeling:newFeeling
       }
     ).then(() => {
       axios
-        .get('http://localhost:3000/posts')
+        .get('http://localhost:3001/posts')
         .then((response) => {
           setPosts(response.data)
         })
@@ -57,7 +62,7 @@ const App = () => }
   }
   useEffect(() => {
     axios
-      .get('http://localhost:3000/posts')
+      .get('http://localhost:3001/posts')
       .then((response) => {
         setPosts(response.data)
       })
@@ -77,7 +82,7 @@ const App = () => }
           <label for="author">Author: </label>
           <input type="text" onChange={handleNewAuthorChange}/><br/>
           <label for="feeling">Feeling: </label>
-          <select onChange={handleNewFeelingChange}>
+          <select onChange={handleNewFeelingChange} defaultValue={newFeeling}>
             <option selected value="Happy">Happy</option>
             <option value="Sad">Sad</option>
             <option value="Excited">Excited</option>
@@ -86,6 +91,7 @@ const App = () => }
           </select><br/>
           <label for="post">Post: </label>
           <input type="text" onChange={handleNewPostChange}/><br/>
+          <input type="submit" value="Create Post"/>
         </form>
       </section>
     </main>
