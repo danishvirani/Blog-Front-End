@@ -44,7 +44,7 @@ const App = () => {
   const handleNewPostFormSubmit = (event) => {
     event.preventDefault()
     axios.post(
-      'http://localhost:3001/posts',
+      'http://localhost:3000/posts',
       {
         author:newAuthor,
         post:newPost,
@@ -54,7 +54,7 @@ const App = () => {
       }
     ).then(() => {
       axios
-        .get('http://localhost:3001/posts')
+        .get('http://localhost:3000/posts')
         .then((response) => {
           setPosts(response.data)
         })
@@ -62,7 +62,7 @@ const App = () => {
   }
   useEffect(() => {
     axios
-      .get('http://localhost:3001/posts')
+      .get('http://localhost:3000/posts')
       .then((response) => {
         setPosts(response.data)
       })
@@ -70,10 +70,10 @@ const App = () => {
 
   const handleDelete = (postData) => {
     axios
-      .delete(`http://localhost:3001/posts/${postData._id}`)
+      .delete(`http://localhost:3000/posts/${postData._id}`)
       .then(() => {
         axios
-          .get('http://localhost:3001/posts')
+          .get('http://localhost:3000/posts')
           .then((response) => {
             setPosts(response.data)
           })
@@ -95,7 +95,7 @@ const App = () => {
       )
       .then(() => {
         axios
-          .get('http://localhost:3001/posts')
+          .get('http://localhost:3000/posts')
           .then((response) => {
             setPosts(response.data)
           })
