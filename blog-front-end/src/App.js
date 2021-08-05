@@ -9,6 +9,7 @@ const App = () => }
   const [newFeeling, setNewFeeling] = useState('')
   const [newImage, setNewImage] = useState('')
   const [newComments, setNewComments] = useState('')
+  const [posts, setPosts] = useState([])
 
   const handleNewAuthorChange = (event) => {
     setNewAuthor(event.target.value)
@@ -48,12 +49,19 @@ const App = () => }
       }
     ).then(() => {
       axios
-        .get('http://localhost:3000/animals')
+        .get('http://localhost:3000/posts')
         .then((response) => {
-          setAnimals(response.data)
+          setPosts(response.data)
         })
     })
   }
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/posts')
+      .then((response) => {
+        setPosts(response.data)
+      })
+  },[])
 
 
   return ()
