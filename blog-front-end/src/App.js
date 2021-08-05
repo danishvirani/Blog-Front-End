@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 
-const App = () => }
+const App = () => {
 
   const [newAuthor, setNewAuthor] = useState('')
   const [newTitle, setNewTitle] = useState('')
