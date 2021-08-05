@@ -68,6 +68,40 @@ const App = () => {
       })
   },[])
 
+  const handleDelete = (postData) => {
+    axios
+      .delete(`http://localhost:3001/posts/${postData._id}`)
+      .then(() => {
+        axios
+          .get('http://localhost:3001/posts')
+          .then((response) => {
+            setPosts(response.data)
+          })
+      })
+  }
+
+  const handleEditPostFormSubmit = (event, postData) => {
+    event.preventDefault()
+    axios
+      .put(
+        `http://localhost:3000/animals/${postData._id}`,
+        {
+          author:newAuthor,
+          post:newPost,
+          title:newTitle,
+          image:newImage,
+          feeling:newFeeling
+        }
+      )
+      .then(() => {
+        axios
+          .get('http://localhost:3001/posts')
+          .then((response) => {
+            setPosts(response.data)
+          })
+      })
+    }
+
 
   return (
 
