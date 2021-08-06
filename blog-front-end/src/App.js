@@ -8,9 +8,9 @@ const App = () => {
   const [newPost, setNewPost] = useState('')
   const [newFeeling, setNewFeeling] = useState('')
   const [newImage, setNewImage] = useState('')
-  const [newComments, setNewComments] = useState('')
+  const [newComments, setNewComments] = useState([])
   const [posts, setPosts] = useState([])
-  const [showEdit, setShowEdit] = useState(false)
+  const [showEdit, setShowEdit] = useState({})
 
   const handleNewAuthorChange = (event) => {
     setNewAuthor(event.target.value)
@@ -32,14 +32,16 @@ const App = () => {
     console.log(newFeeling)
   }
 
-  const handleNewCommentChange = (event) => {
-    setNewComments(event.target.value)
-    console.log(newComments)
-  }
-
   const handleNewImageChange = (event) => {
     setNewImage(event.target.value)
     console.log(newImage)
+  }
+
+  const handleNewCommentsChange = (event, comments) => {
+    console.log(comments)
+    setNewComments(newComments => [...comments, event.target.value])
+    console.log(newComments)
+    console.log(event.target.value)
   }
 
   const handleNewPostFormSubmit = (event) => {
@@ -103,9 +105,37 @@ const App = () => {
       })
     }
 
-    const handleShowEdit = (event, postData) => {
-      setShowEdit(show => !show)
+    const handleShowEdit = (id) => {
+      setShowEdit(prevShowState => ({
+        ...prevShowState,
+        [id]: !prevShowState[id]
+      }))
+      console.log(showEdit)
+      console.log(showEdit._id)
     }
+
+    const handleNewComment = (event, commentData) => {
+      event.preventDefault()
+      axios
+        .put(
+          `http://localhost:3000/posts/${commentData._id}`,
+          {
+            author:commentData.author,
+            post:commentData.post,
+            title:commentData.title,
+            image:commentData.image,
+            feeling:commentData.feeling,
+            comments:newComments
+          }
+        )
+        .then(() => {
+          axios
+            .get('http://localhost:3000/posts')
+            .then((response) => {
+              setPosts(response.data)
+            })
+        })
+      }
 
 
   return (
@@ -143,10 +173,28 @@ const App = () => {
               <img src={post.image}/><br/>
               <p>Author: {post.author}</p>
               <p>Feeling: {post.feeling}</p>
+              <p>{post.post}</p>
+              <div>
+                <h5>Comments:</h5>
+                  <ul>
+                  {
+                    post.comments.map((comment) => {
+                      return <li>{comment}</li>
+                      console.log(post.comments)
+                    })
+                  }
+                </ul>
+                <h5>Post Comment</h5>
+                <form onSubmit={ (event) => { handleNewComment(event, post) } }>
+                  <input type="text" onChange={ (event) => { handleNewCommentsChange(event, post.comments) } }/>
+                  <input type="submit" value="Comment"/>
+                </form>
+              </div>
+
               <button onClick={ (event) => {handleDelete(post) } }>Delete</button>
-              <button onClick={ (event) => { handleShowEdit(event, post) } }>Edit Post</button>
+              <button onClick={ () => handleShowEdit(post._id) }>Edit Post</button>
               {
-                (showEdit)?
+                showEdit[post._id] ?
                 <form onSubmit={ (event) => { handleEditPostFormSubmit(event, post) } }>
                   <label for="title">Title: </label>
                   <input type="text" onChange={handleNewTitleChange} defaultValue={post.title}/><br/>
