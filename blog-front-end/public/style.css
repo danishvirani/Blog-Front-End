@@ -1,0 +1,19 @@
+/* body {
+    background-color: antiquewhite;
+} */
+
+#root {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-top: .5em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+}
