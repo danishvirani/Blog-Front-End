@@ -6,7 +6,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-h1, h2, h3, p {
+h1, h2, h3, h5, p {
     text-align: center;
     margin-top: .5em;
 }
@@ -20,6 +20,10 @@ form {
 
 ul {
     list-style-type: none;
+}
+
+li {
+    text-align: center;
 }
 
 img {
