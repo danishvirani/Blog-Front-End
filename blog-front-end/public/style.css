@@ -1,0 +1,38 @@
+/* body {
+    background-color: antiquewhite;
+} */
+
+#root {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h5, p {
+    text-align: center;
+    margin-top: .5em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    text-align: center;
+}
+
+img {
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+button {
+    display: block;
+    margin: 1em auto;
+}
